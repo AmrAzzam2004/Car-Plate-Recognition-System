@@ -14,10 +14,10 @@ image_paths = [
     for f in os.listdir(IMAGE_DIR)
     if f.lower().endswith(('.png', '.jpg', '.jpeg'))
 ]
-print("Amr")
+
 print("image found",image_paths)
 
-img=cv2.imread(image_paths[3])
+img=cv2.imread(image_paths[0])
 gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 # plt.imshow(gray,cmap='gray')
 # plt.show()
@@ -54,6 +54,6 @@ plt.imshow(cropped_image,cmap='gray')
 plt.show()
 
 
-# reader = easyocr.Reader(['ar'])
-# result = reader.readtext(cropped_image)
-# print(result)
+reader = easyocr.Reader(['en'])
+result = reader.readtext(cropped_image)
+print(result)
