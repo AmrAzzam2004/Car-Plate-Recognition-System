@@ -14,7 +14,7 @@ image_paths = [
     for f in os.listdir(IMAGE_DIR)
     if f.lower().endswith(('.png', '.jpg', '.jpeg'))
 ]
-
+print("Amr")
 print("image found",image_paths)
 
 img=cv2.imread(image_paths[3])
