@@ -16,8 +16,8 @@ image_paths = [
 ]
 
 print("image found",image_paths)
-# change the color of the image to gray scale
-img=cv2.imread(image_paths[0])
+
+img=cv2.imread(image_paths[3])
 gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 # plt.imshow(gray,cmap='gray')
 # plt.show()
@@ -50,9 +50,10 @@ x,y=np.where(mask==255)
 (x1,y1)=np.min(x),np.min(y)
 (x2,y2)=np.max(x),np.max(y)
 cropped_image=gray[x1:x2+1,y1:y2+1]
-# plt.imshow(cropped_image,cmap='gray')
-# plt.show()
+plt.imshow(cropped_image,cmap='gray')
+plt.show()
 
-reader = easyocr.Reader(['en'])
-result = reader.readtext(cropped_image)
-print(result)
+
+# reader = easyocr.Reader(['ar'])
+# result = reader.readtext(cropped_image)
+# print(result)
