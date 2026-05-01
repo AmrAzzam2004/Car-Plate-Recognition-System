@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import imutils
+import matplotlib.pyplot as plt
 
 def extract_plate(image_path):
     # Read image
@@ -13,8 +14,9 @@ def extract_plate(image_path):
 
     # Noise reduction + edge detection
     bfilter = cv2.bilateralFilter(gray, 11, 17, 17)
-    edged = cv2.Canny(bfilter, 200, 400)
-
+    edged = cv2.Canny(bfilter, 200, 500)
+    plt.imshow(edged, cmap='gray')
+    plt.show()
     # Find contours
     keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = imutils.grab_contours(keypoints)
@@ -22,7 +24,7 @@ def extract_plate(image_path):
 
     location = None
     for contour in contours:
-        approx = cv2.approxPolyDP(contour, 10, True)
+        approx = cv2.approxPolyDP(contour, 4, True)
         if len(approx) == 4:
             location = approx
             break
@@ -33,7 +35,8 @@ def extract_plate(image_path):
     # Create mask
     mask = np.zeros(gray.shape, np.uint8)
     cv2.drawContours(mask, [location], 0, 255, -1)
-
+    plt.imshow(mask, cmap='gray')
+    plt.show()
     # Extract the plate
     x, y = np.where(mask == 255)
     (x1, y1) = (np.min(x), np.min(y))
@@ -41,4 +44,7 @@ def extract_plate(image_path):
 
     cropped_image = gray[x1:x2+1, y1:y2+1]
 
+    plt.imshow(cropped_image, cmap='gray')
+    plt.title('Cropped Plate')
+    plt.show()
     return cropped_image

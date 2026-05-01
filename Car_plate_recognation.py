@@ -16,5 +16,5 @@ image_paths = [
     for f in os.listdir(IMAGE_DIR)
     if f.lower().endswith(('.png', '.jpg', '.jpeg'))
 ]
-new_plate = ep.extract_plate(image_paths[0])
-print(eos.easyOCR_scan(image_paths[0]))
+new_plate = ep.extract_plate(image_paths[1])
+print(eos.easyOCR_scan(new_plate))
